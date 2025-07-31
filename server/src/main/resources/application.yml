@@ -1,6 +1,9 @@
 spring:
   application:
     name: postit-server
+  profiles:
+    active:
+      - dev
   r2dbc:
     password: password
     username: local
