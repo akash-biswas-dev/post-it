@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: postit-server
+  r2dbc:
+    password: password
+    username: local
+    url: r2dbc:mysql://localhost:3306/local
+server:
+  port: 8501
