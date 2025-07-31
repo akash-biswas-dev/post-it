@@ -7,6 +7,8 @@ import {
 import express from 'express';
 import { join } from 'node:path';
 
+import { createProxyMiddleware } from 'http-proxy-middleware';
+
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
@@ -27,6 +29,12 @@ const angularApp = new AngularNodeAppEngine();
 /**
  * Serve static files from /browser
  */
+app.use('/api',createProxyMiddleware({
+  target: 'http://127.0.0.1:8501/api',
+  changeOrigin:true,
+  secure:false,
+}))
+
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
@@ -46,6 +54,8 @@ app.use((req, res, next) => {
     )
     .catch(next);
 });
+
+
 
 /**
  * Start the server if this module is the main entry point.
