@@ -68,8 +68,7 @@
             }
           },
           "options": {
-            "proxyConfig": "src/proxy.conf.json",
-            "host": "postit.com"
+            "proxyConfig": "src/proxy.conf.json"
           },
           "defaultConfiguration": "development"
         },
@@ -97,5 +96,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "b7f94038-2c22-4914-8009-903baef8d68c"
   }
 }
