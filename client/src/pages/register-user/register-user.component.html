@@ -1,0 +1,44 @@
+<div class="bg-white p-8 rounded-xl shadow-xl w-full md:max-w-lg">
+  <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">Create your Post it account</h2>
+  <form (submit)="onSubmit()" class="space-y-4" [formGroup]="newUserForm">
+
+    <div class="input-group">
+      <input type="email" placeholder="Email" name="username" class="input" formControlName="username" />
+
+      <input type="text" placeholder="Username" name="username" class="input" formControlName="lastName" />
+    </div>
+
+    <div class="input-group">
+      <input type="text" placeholder="First Name" name="username" class="input" formControlName="email" />
+      <input type="text" placeholder="Last Name" name="username" class="input" formControlName="firstName" />
+    </div>
+
+    <div class="input-group">
+      <input type="password" placeholder="Password" name="password" class="input" formControlName="password" />
+
+      <div class="relative w-full">
+        <input [type]="showPassword() ? 'text' : 'password'" placeholder="Confirm Password" class='input'
+          formControlName="confirmPassword" />
+        <span type="button" class="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer" (click)="updateShowPassword()">
+          <fa-icon [icon]="showPassword() ? showPasswordIcon : hidePasswordIcon"></fa-icon>
+        </span>
+      </div>
+    </div>
+
+
+
+
+    <button type="submit"
+      class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition font-medium">
+      ✍️ Sign Up
+    </button>
+  </form>
+
+  <div class="mt-6 text-center">
+    <a href="/api/v1/auth/google"
+      class="flex items-center justify-center w-full py-2 border border-gray-300 rounded-md bg-white hover:bg-blue-100 transition">
+      <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Icon" class="h-5 mr-2">
+      Sign up with Google
+    </a>
+  </div>
+</div>

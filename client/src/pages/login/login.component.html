@@ -1,0 +1,26 @@
+<div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-md">
+  <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">Sign in to Post it</h2>
+
+  <form (submit)="onSubmit()" class="space-y-4" [formGroup]="userLoginForm">
+
+    <input inputType="text" placeholder="Username Or Email" formControlName="usernameOrEmail" class="input" />
+
+    <div class="relative">
+      <input [type]="showPassword() ? 'text' : 'password'" placeholder="Password" class='input'
+        formControlName="password" />
+      <span type="button" class="absolute top-2 right-2 cursor-pointer" (click)="updateShowPassword()">
+        <fa-icon [icon]="showPassword() ? showPasswordIcon : hidePasswordIcon"></fa-icon>
+      </span>
+    </div>
+
+    <app-button class="w-full" label="Sign up" variant="primary"></app-button>
+  </form>
+
+  <div class="mt-8 text-center cursor-pointer">
+    <a
+      class="flex items-center justify-center w-full py-2 border border-gray-300 rounded-md bg-white hover:bg-blue-100 transition">
+      <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Icon" class="h-5 mr-2">
+      Sign in with Google
+    </a>
+  </div>
+</div>

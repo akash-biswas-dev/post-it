@@ -1,0 +1,17 @@
+<header class="flex justify-between items-center">
+  <a routerLink="/home" class="title cursor-pointer">Post it</a>
+  <div class="space-x-2">
+
+    @if(isAuthenticated()){
+    <!-- Display username and Image -->
+
+    }@else {
+    @if(currentPath() !== 'auth/login'){
+    <app-button (click)="router.navigateByUrl('/auth/login')" variant="primary" label="Login"></app-button>
+    }
+    @if(currentPath() !== 'auth/register'){
+    <app-button (click)="router.navigateByUrl('/auth/register')" variant="secondary" label="Register"></app-button>
+    }
+    }
+  </div>
+</header>

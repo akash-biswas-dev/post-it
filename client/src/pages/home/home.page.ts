@@ -1,6 +1,9 @@
 import { Component } from "@angular/core";
-import { BlogCard, BlogCardType } from "../../components/blog/blog-card.component";
+import { BlogCard, BlogCardType } from "../../components/blog-card/blog-card.component";
 import { Button } from "../../components/button/button.component";
+import { ActivatedRoute, Router } from "@angular/router";
+import { CategoriesComponent, CategoryType } from "../../components/categories/categories.component";
+import { Header } from "../../components/header/header.component";
 
 
 
@@ -9,12 +12,32 @@ import { Button } from "../../components/button/button.component";
   selector: 'app-home',
   templateUrl:'home.page.html',
   standalone: true,
-  imports: [BlogCard, Button]
+  imports: [BlogCard, Header, CategoriesComponent]
 })
 export class HomePage {
 
 
-  blogs: BlogCardType[] = [
+  constructor(private activatedRoute: ActivatedRoute, protected router:Router) {
+    activatedRoute.params.subscribe(params => {
+      console.log(params);
+    })
+  }
+
+
+
+  onChangeCategory(category: CategoryType) {
+    this.router.navigate(['/home'],{
+      queryParams: {
+        category: category.name
+      },
+      queryParamsHandling: 'preserve'
+    });
+    console.log(category);
+  }
+  
+
+
+  blogs$: BlogCardType[] = [
     {
       imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
       title: 'Blog Post 1',
@@ -48,6 +71,4 @@ export class HomePage {
       tags: ['Tech', 'Gaming', 'Esports']
     }
   ]
-
-  constructor() { }
 }
