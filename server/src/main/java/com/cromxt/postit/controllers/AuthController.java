@@ -1,7 +1,5 @@
 package com.cromxt.postit.controllers;
 
-import java.net.URI;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -47,13 +45,13 @@ public class AuthController {
         .flatMap(userToken -> {
           ResponseCookie cookie = ResponseCookie.from("sessionId", userToken)
               .httpOnly(true)
-              .domain("postit.com")
               .maxAge(jwtService.getExpiration())
+              .domain("localhost")
+              .sameSite("None")
               .path("/")
               .build();
           response.addCookie(cookie);
-          response.getHeaders().setLocation(URI.create(request.getURI().getScheme() + "://" + jwtService.getIssuer()));
-          response.setStatusCode(HttpStatus.TEMPORARY_REDIRECT);
+          response.setStatusCode(HttpStatus.NO_CONTENT);
           return response.setComplete();
         })
         .onErrorResume(err -> {
