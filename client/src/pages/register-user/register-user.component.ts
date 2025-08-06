@@ -2,15 +2,16 @@ import { Component, signal, WritableSignal } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
-import {faEye} from '@fortawesome/free-solid-svg-icons/faEye';
-import {faEyeSlash} from '@fortawesome/free-solid-svg-icons/faEyeSlash';
+import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
+import { InputComponent } from "../../components/input/input.component";
 
 
 @Component({
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
   standalone: true,
-  imports: [ReactiveFormsModule, FontAwesomeModule]
+  imports: [ReactiveFormsModule, InputComponent]
 })
 export class RegisterUseComponent {
 
@@ -20,10 +21,12 @@ export class RegisterUseComponent {
   newUserForm = new FormGroup({
     username: new FormControl(''),
     email: new FormControl(''),
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
-    firstName: new FormControl(''),
-    lastName: new FormControl('')
+    dateOfBirth: new FormControl(''),
+    gender: new FormControl('')
   })
 
   showPassword: WritableSignal<boolean> = signal(false)

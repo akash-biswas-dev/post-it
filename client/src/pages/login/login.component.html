@@ -1,7 +1,7 @@
 <div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-md">
   <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">Sign in to Post it</h2>
 
-  <form (ngSubmit)="onSubmit()" class="flex flex-col gap-4" [formGroup]="userLoginForm">
+  <form (ngSubmit)="onSubmit()" class="auth-form" [formGroup]="userLoginForm">
 
     <app-input inputLabel="Username or Email" [inputFormControl]="userLoginForm.get('usernameOrEmail')"
       [showIcon]="true"></app-input>

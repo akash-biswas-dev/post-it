@@ -1,4 +1,4 @@
-import { Component, computed, input, signal, WritableSignal } from "@angular/core";
+import { Component, computed, ElementRef, HostBinding, input, signal, ViewChild, WritableSignal } from "@angular/core";
 import { AbstractControl, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 
@@ -12,19 +12,17 @@ import { faKeyboard } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './input.component.html',
 })
 export class InputComponent {
-
-
+  @HostBinding('class') classes = 'flex flex-col gap-1 w-full';
 
   // Component attributes
   inputLabel = input<string>('Input Field'); // Input label;
-  inputType = input<string>('text');
-  inputName = input<InputType>('text');
+  inputType = input<InputType>('text');
   options = input<string[]>([]);
   inputFormControl = input.required<AbstractControl<string | null, string | null, any> | null>();
+  inputPlaceholder = input<string>('');
 
 
-
-  protected fieldName = computed(() => this.inputLabel().toLocaleLowerCase().replace(' ', '-'));
+  protected fieldName = computed(() => this.inputLabel().toLocaleLowerCase().replaceAll(' ', '-'));
 
   protected formControlValue = computed(() => {
     return this.inputFormControl() as FormControl<string | null>;
@@ -58,6 +56,7 @@ export class InputComponent {
   }
 
 
+
 }
 
-export type InputType = 'text' | 'password' | 'email' | 'number' | 'select';
+export type InputType = 'text' | 'password' | 'email' | 'number' | 'select' | 'date';

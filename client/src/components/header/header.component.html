@@ -6,6 +6,7 @@
     <!-- Display username and Image -->
 
     }@else {
+    <!-- The user is not logged in -->
     @if(currentPath() !== '/auth/login'){
     <app-button (click)="router.navigateByUrl('/auth/login')" variant="primary" label="Login"></app-button>
     }
