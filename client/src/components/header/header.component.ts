@@ -6,31 +6,32 @@ import { AuthService } from "../../services/auth.service";
 
 
 @Component({
-  selector:'app-header',
-  templateUrl:'./header.component.html',
-  standalone:true,
-  imports:[Button,RouterLink]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  standalone: true,
+  imports: [Button, RouterLink]
 })
-export class Header implements OnDestroy{
+export class Header implements OnDestroy {
 
-  activatedRoutSubscription:Subscription;
+  activatedRoutSubscription: Subscription;
 
-  private authService:AuthService = inject(AuthService);
+  private authService: AuthService = inject(AuthService);
 
-  isAuthenticated:Signal<boolean> = computed(()=>{
-    if(this.authService.authToken()){
+  isAuthenticated: Signal<boolean> = computed(() => {
+    if (this.authService.authToken()) {
       return true;
     }
     return false;
   });
 
-  currentPath:WritableSignal<string> = signal('');
+  currentPath: WritableSignal<string>;
 
-  constructor(protected router:Router){
+  constructor(protected router: Router) {
+    this.currentPath = signal(router.url);
     this.activatedRoutSubscription = router.events.pipe(filter(eve => eve instanceof NavigationEnd))
-    .subscribe((eve) =>{
-      this.currentPath.set(eve.urlAfterRedirects);
-    })
+      .subscribe((eve) => {
+        this.currentPath.set(eve.urlAfterRedirects);
+      })
   }
   ngOnDestroy(): void {
     this.activatedRoutSubscription.unsubscribe();
