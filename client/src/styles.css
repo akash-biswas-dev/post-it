@@ -16,6 +16,10 @@
   @apply ring-2 ring-blue-500;
 }
 
+.input-error {
+  @apply ring-2 ring-red-500;
+}
+
 .input-group {
   @apply flex flex-row w-full gap-2;
 }

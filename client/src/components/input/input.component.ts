@@ -20,6 +20,8 @@ export class InputComponent {
   options = input<string[]>([]);
   inputFormControl = input.required<AbstractControl<string | null, string | null, any> | null>();
   inputPlaceholder = input<string>('');
+  autoComplete = input<'on' | 'off'>('off');
+  errorMessage = input<string>('Invalid input');
 
 
   protected fieldName = computed(() => this.inputLabel().toLocaleLowerCase().replaceAll(' ', '-'));
@@ -43,16 +45,20 @@ export class InputComponent {
     this.showPassword.update((value) => !value);
   }
 
+  // If input has error then set error message
+  inputError: WritableSignal<boolean> = signal(false);
 
 
   isElementFocused: WritableSignal<boolean> = signal<boolean>(false);
 
   onFocus() {
     this.isElementFocused.set(true);
+    this.inputError.set(false);
   }
 
   onBlur() {
     this.isElementFocused.set(false);
+    this.formControlValue().errors && this.inputError.set(true);
   }
 
 
