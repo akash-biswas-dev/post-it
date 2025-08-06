@@ -1,0 +1,43 @@
+<div [class]="{
+    'input':true,
+    'input-focus':isElementFocused()
+}">
+    @if (inputType() === 'password') {
+
+    <input (focus)="onFocus()" (blur)="onBlur()" [type]="showPassword() ? 'text' : 'password'"
+        [placeholder]="inputLabel()" [name]="fieldName()" class='focus:outline-none w-full h-full'
+        [formControl]="formControlValue()" />
+    @if(showIcon()){
+
+    <span type="button" class="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer" (click)="updateShowPassword()">
+        <fa-icon [icon]="showPassword() ? showPasswordIcon : hidePasswordIcon"></fa-icon>
+    </span>
+    }
+    }
+    @else {
+
+    @if (inputType() === 'select') {
+
+    <select (focus)="onFocus()" (blur)="onBlur()" [name]="fieldName()" [formControl]="formControlValue()"
+        class="focus:outline-none w-full h-full">
+        <option disabled selected value="">Select {{inputLabel()}}</option>
+        @for (option of options(); track $index) {
+        <option [value]="option">{{option}}</option>
+        }
+    </select>
+
+    }@else{
+    <input (focus)="onFocus()" (blur)="onBlur()" [formControl]="formControlValue()"
+        class="focus:outline-none w-full h-full" [type]="inputType()" [placeholder]="inputLabel()"
+        [name]="fieldName()" />
+
+    }
+    @if(showIcon()) {
+
+    <span type="button" class="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer">
+        <fa-icon [icon]="inputIcon()"></fa-icon>
+    </span>
+    }
+    }
+
+</div>

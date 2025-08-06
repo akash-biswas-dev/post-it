@@ -1,42 +1,36 @@
-import { Component, signal, WritableSignal } from "@angular/core";
+import { Component } from "@angular/core";
 
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { Button } from "../../components/button/button.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import {faEye} from '@fortawesome/free-solid-svg-icons/faEye';
-import {faEyeSlash} from '@fortawesome/free-solid-svg-icons/faEyeSlash';
+import { Button } from "../../components/button/button.component";
+import { InputComponent } from "../../components/input/input.component";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  standalone:true,
-  imports:[ReactiveFormsModule, Button, FontAwesomeModule],
-  
+  standalone: true,
+  imports: [ReactiveFormsModule, Button, FontAwesomeModule, InputComponent],
+
 })
 export class LoginComponent {
- 
-  showPasswordIcon = faEye;
-  hidePasswordIcon = faEyeSlash;
 
   userLoginForm = new FormGroup({
-    usernameOrEmail: new FormControl(''),
-    password: new FormControl(''),
+    usernameOrEmail: new FormControl<string>(''),
+    password: new FormControl<string>(''),
   });
 
-  showPassword: WritableSignal<boolean> = signal(false);
 
-  updateShowPassword() {
-    this.showPassword.update((value) => !value);
-  }
 
   onSubmit() {
     const { usernameOrEmail, password } = this.userLoginForm.value;
 
-    if(!usernameOrEmail && !password){
+    console.log(usernameOrEmail, password);
+
+    if (!usernameOrEmail && !password) {
       return;
     }
 
-    
+
   }
 
 } 
