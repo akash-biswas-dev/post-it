@@ -16,7 +16,7 @@ pipeline {
                     steps{
                         echo 'Start to build the Postit Client.'
                         dir('client'){
-                            sh 'docker build -t biswasakash/post-it-client:docker-deployment .'
+                            sh 'docker build -t biswasakash/postit-client:docker-deployment .'
                         }
                     }
                 }
@@ -24,7 +24,7 @@ pipeline {
                     steps{
                         echo 'Start to build the Postit Gateway.'
                         dir('nginx'){
-                            sh 'docker build -t biswasakash/post-it-gateway:docker-deployment .'
+                            sh 'docker build -t biswasakash/postit-gateway:docker-deployment .'
                         }
                     }
                 }
@@ -32,7 +32,7 @@ pipeline {
                     steps{
                         echo 'Start to build the Postit Server.'
                         dir('server'){
-                            sh 'docker build -t biswasakash/post-it-server:docker-deployment .'
+                            sh 'docker build -t biswasakash/postit-server:docker-deployment .'
                         }
                     }
                 }

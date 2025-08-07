@@ -1,17 +1,23 @@
 services:
   gateway:
-    image: biswasakash/postit-gateway:docker-deployment
-    container_name: postit-gateway
+    build:
+      context: .
+      dockerfile: docker/nginx.Dockerfile
+    container_name: postit-gateway-dev
     ports:
       - "8901:80"
   client:
-    image: biswasakash/postit-client:docker-deployment
-    container_name: postit-client
+    build:
+      context: .
+      dockerfile: docker/client.Dockerfile
+    container_name: postit-client-dev
     environment:
-      - PORT=4000
+      - PORT=4800
   server:
-    image: biswasakash/postit-server:docker-deployment
-    container_name: postit-server
+    build:
+      context: .
+      dockerfile: docker/server.Dockerfile
+    container_name: postit-server-dev
     environment:
       - SERVER_PORT=8501
       - JWT_SECRET=75867AA2039B13075BB92152F457AC6BBA6E7D3459AA04DA8F1EE1A921CC2170

@@ -4,9 +4,9 @@ RUN npm install -g pnpm
 
 WORKDIR /app
 
-COPY . .
+COPY ../client .
 
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 RUN pnpm build
 
@@ -14,7 +14,7 @@ FROM node:22.18-alpine3.22
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+COPY ../client/package.json ../client/pnpm-lock.yaml ./
 
 COPY --from=builder /app/dist/client/server .
 
