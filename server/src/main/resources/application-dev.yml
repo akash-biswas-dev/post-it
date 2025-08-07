@@ -1,3 +1,10 @@
 jwt:
   secret: 75867AA2039B13075BB92152F457AC6BBA6E7D3459AA04DA8F1EE1A921CC2170
   issuer: postit.com
+spring:
+  r2dbc:
+    username: local
+    password: password
+    url: r2dbc:mysql://localhost:3306/local
+server:
+  port: 8501
