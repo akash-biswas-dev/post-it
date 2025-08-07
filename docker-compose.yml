@@ -1,21 +1,22 @@
 services:
   gateway:
-    image: biswasakash/post-it-nginx:docker-deployement
-    container_name: postit-server
+    image: biswasakash/post-it-gateway:docker-deployment
+    container_name: postit-gateway
     ports:
       - "8901:80"
   client:
-    image: biswasakash/post-it-client:latest
+    image: biswasakash/post-it-client:docker-deployment
+    container_name: postit-client
     environment:
       - PORT=4000
   server:
-    image: biswasakash/post-it-server:latest
+    image: biswasakash/post-it-server:docker-deployment
     container_name: postit-server
     environment:
       - SERVER_PORT=8501
       - JWT_SECRET=75867AA2039B13075BB92152F457AC6BBA6E7D3459AA04DA8F1EE1A921CC2170
       - JWT_ISSUER=postit.com
-      - SPRING_R2DBC_URL=r2dbc:mysql://localhost:3306/dockerdb
+      - SPRING_R2DBC_URL=r2dbc:mysql://postit-db:3306/dockerdb
       - SPRING_R2DBC_USERNAME=postit
       - SPRING_R2DBC_PASSWORD=complexpassword
   db:
@@ -26,3 +27,7 @@ services:
       - MYSQL_USER=postit
       - MYSQL_PASSWORD=complexpassword
       - MYSQL_DATABASE=dockerdb
+
+networks:
+  post-it-network:
+    driver: bridge
