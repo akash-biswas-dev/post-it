@@ -11,29 +11,28 @@ pipeline {
             }
         }
         stage('Build') {
-            parallel{
-                stage('Build Client') {
-                    steps{
-                        echo 'Start to build the Postit Client.'
-                        dir('client'){
-                            sh 'docker build -t biswasakash/post-it-client:docker-deployment .'
-                        }
+            
+            stage('Build Client') {
+                steps{
+                    echo 'Start to build the Postit Client.'
+                    dir('client'){
+                        sh 'docker build -t biswasakash/post-it-client:docker-deployment .'
                     }
                 }
-                stage('Nginx Build') {
-                    steps{
-                        echo 'Start to build the Postit Gateway.'
-                        dir('nginx'){
-                            sh 'docker build -t biswasakash/post-it-gateway:docker-deployment .'
-                        }
+            }
+            stage('Nginx Build') {
+                steps{
+                    echo 'Start to build the Postit Gateway.'
+                    dir('nginx'){
+                        sh 'docker build -t biswasakash/post-it-gateway:docker-deployment .'
                     }
                 }
-                stage('Server Build') {
-                    steps{
-                        echo 'Start to build the Postit Server.'
-                        dir('nginx'){
-                            sh 'docker build -t biswasakash/post-it-server:docker-deployment .'
-                        }
+            }
+            stage('Server Build') {
+                steps{
+                    echo 'Start to build the Postit Server.'
+                    dir('nginx'){
+                        sh 'docker build -t biswasakash/post-it-server:docker-deployment .'
                     }
                 }
             }
