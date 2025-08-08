@@ -1,11 +1,9 @@
 import { Component, HostBinding, signal, WritableSignal } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash';
 import { InputComponent } from "../../components/input/input.component";
-
 
 @Component({
   selector: 'app-register-user',

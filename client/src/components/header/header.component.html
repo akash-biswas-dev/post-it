@@ -8,10 +8,10 @@
     }@else {
     <!-- The user is not logged in -->
     @if(currentPath() !== '/auth/login'){
-    <app-button (click)="router.navigateByUrl('/auth/login')" variant="primary" label="Login"></app-button>
+    <app-button routerLink="/auth/login" variant="primary" label="Login"></app-button>
     }
     @if(currentPath() !== '/auth/register'){
-    <app-button (click)="router.navigateByUrl('/auth/register')" variant="secondary" label="Register"></app-button>
+    <app-button routerLink="/auth/register" variant="secondary" label="Register"></app-button>
     }
     }
   </div>

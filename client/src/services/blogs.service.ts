@@ -13,6 +13,6 @@ export class BlogsService {
 
   getBlogCategories() {
     return this.httpClient
-      .get<CategoryType[]>(`${this.applicationService.getBaseURL()}/v1/blogs/categories`)
+      .get<CategoryType[]>(`${this.applicationService.getBaseURL()}/api/v1/blogs/categories`)
   }
 }

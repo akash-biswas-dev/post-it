@@ -36,5 +36,4 @@ export class Header implements OnDestroy {
   ngOnDestroy(): void {
     this.activatedRoutSubscription.unsubscribe();
   }
-
 }

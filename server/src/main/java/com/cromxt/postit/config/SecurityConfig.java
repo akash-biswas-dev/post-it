@@ -1,5 +1,7 @@
 package com.cromxt.postit.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,9 @@ import org.springframework.security.web.server.authentication.AuthenticationWebF
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -26,48 +31,68 @@ import reactor.core.publisher.Mono;
 @EnableReactiveMethodSecurity
 public class SecurityConfig {
 
-    private final ServerAuthenticationConverter authenticationConverter;
+        private final ServerAuthenticationConverter authenticationConverter;
 
-    private static final String[] JWT_AUTHENTICATION_SECURED_ENDPOINTS = {
-            "/api/**"
-    };
+        private static final String[] JWT_AUTHENTICATION_SECURED_ENDPOINTS = {
+                        "/api/**"
+        };
 
-    private static final String[] WHITELIST_ENDPOINTS = {
-            "/api/v1/auth/**",
-            "/api/v1/blogs/categories"
-    };
+        private static final String[] WHITELIST_ENDPOINTS = {
+                        "/api/v1/auth/**",
+                        "/api/v1/blogs/categories",
+                        "/actuator/**"
+        };
 
-    @Bean
-    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity httpSecurity,
-            @Qualifier("jwtAuthenticationManager") ReactiveAuthenticationManager authenticationManager) {
+        @Bean
+        SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity httpSecurity,
+                        @Qualifier("jwtAuthenticationManager") ReactiveAuthenticationManager authenticationManager) {
 
-        AuthenticationWebFilter authenticationFilter = new AuthenticationWebFilter(authenticationManager);
-        authenticationFilter.setServerAuthenticationConverter(authenticationConverter);
-        authenticationFilter
-                .setRequiresAuthenticationMatcher(
-                        ServerWebExchangeMatchers.pathMatchers(JWT_AUTHENTICATION_SECURED_ENDPOINTS));
+                AuthenticationWebFilter authenticationFilter = new AuthenticationWebFilter(authenticationManager);
+                authenticationFilter.setServerAuthenticationConverter(authenticationConverter);
+                authenticationFilter
+                                .setRequiresAuthenticationMatcher(
+                                                ServerWebExchangeMatchers
+                                                                .pathMatchers(JWT_AUTHENTICATION_SECURED_ENDPOINTS));
 
-        httpSecurity
-                .formLogin(FormLoginSpec::disable)
-                .httpBasic(HttpBasicSpec::disable)
-                .csrf(CsrfSpec::disable)
-                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-                .authorizeExchange(exchange -> exchange
-                        .pathMatchers(WHITELIST_ENDPOINTS)
-                        .permitAll()
-                        .anyExchange()
-                        .authenticated())
-                .exceptionHandling(exceptionHandlingConfig -> exceptionHandlingConfig.authenticationEntryPoint(
-                        (exchange, exception) -> {
+                httpSecurity
+                                .formLogin(FormLoginSpec::disable)
+                                .httpBasic(HttpBasicSpec::disable)
+                                .csrf(CsrfSpec::disable)
+                                .cors(cors -> {
+                                        cors.configurationSource(getConfigurationSource());
+                                })
+                                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
+                                .authorizeExchange(exchange -> exchange
+                                                .pathMatchers(WHITELIST_ENDPOINTS)
+                                                .permitAll()
+                                                .anyExchange()
+                                                .authenticated())
+                                .exceptionHandling(exceptionHandlingConfig -> exceptionHandlingConfig
+                                                .authenticationEntryPoint(
+                                                                (exchange, exception) -> {
 
-                            System.out.println(exchange.getRequest().getURI());
-                            System.out.println(exception.getMessage());
-                            // Handle the security exception and write the response.
+                                                                        System.out.println(
+                                                                                        exchange.getRequest().getURI());
+                                                                        System.out.println(exception.getMessage());
+                                                                        // Handle the security exception and write the
+                                                                        // response.
 
-                            return Mono.empty();
-                        }))
-                .authenticationManager(authenticationManager)
-                .addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION);
-        return httpSecurity.build();
-    }
+                                                                        return Mono.empty();
+                                                                }))
+                                .authenticationManager(authenticationManager)
+                                .addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION);
+                return httpSecurity.build();
+        }
+
+        CorsConfigurationSource getConfigurationSource() {
+                CorsConfiguration config = new CorsConfiguration();
+                config.setAllowedOrigins(List.of("http://postit-gateway", "http://postit-client:4800"));
+                config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                config.setAllowedHeaders(List.of("*"));
+                config.setAllowCredentials(true);
+
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", config);
+                return source;
+        }
 }

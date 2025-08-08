@@ -12,12 +12,12 @@ export class ApplicationService {
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     if (!environment.production) {
-      this.baseURL.set(environment.apiURL);
+      this.baseURL.set('');
     } else {
       if (isPlatformServer(platformId)) {
         this.baseURL.set(environment.apiURL);
       } else {
-        this.baseURL.set('/api');
+        this.baseURL.set('');
       }
     }
   }

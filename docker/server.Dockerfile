@@ -8,6 +8,8 @@ RUN mvn clean package -DskipTests
 
 FROM openjdk:21-ea-11-slim-bullseye
 
+RUN apt-get update && apt-get install -y curl
+
 WORKDIR /app
 
 COPY --from=builder /app/target/*.jar app.jar
