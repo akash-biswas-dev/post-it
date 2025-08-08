@@ -1,22 +1,20 @@
-<div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-md">
-  <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">Sign in to Post it</h2>
+<h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">Sign in to Post it</h2>
 
-  <form (ngSubmit)="onSubmit()" class="auth-form" [formGroup]="userLoginForm">
+<form (ngSubmit)="onSubmit()" class="auth-form" [formGroup]="userLoginForm">
 
-    <app-input inputLabel="Username or Email" [inputFormControl]="userLoginForm.get('usernameOrEmail')"
-      [showIcon]="true"></app-input>
+  <app-input inputLabel="Username or Email" [inputFormControl]="userLoginForm.get('usernameOrEmail')"
+    [showIcon]="true"></app-input>
 
-    <app-input inputLabel="Password" inputType="password" [inputFormControl]="userLoginForm.get('password')"
-      [showIcon]="true"></app-input>
+  <app-input inputLabel="Password" inputType="password" [inputFormControl]="userLoginForm.get('password')"
+    [showIcon]="true"></app-input>
 
-    <app-button class="w-full" label="Sign up" variant="primary"></app-button>
-  </form>
+  <app-button class="w-full" label="Sign up" variant="primary"></app-button>
+</form>
 
-  <div class="mt-8 text-center cursor-pointer">
-    <a
-      class="flex items-center justify-center w-full py-2 border border-gray-300 rounded-md bg-white hover:bg-blue-100 transition">
-      <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Icon" class="h-5 mr-2">
-      Sign in with Google
-    </a>
-  </div>
+<div class="mt-8 text-center cursor-pointer">
+  <a
+    class="flex items-center justify-center w-full py-2 border border-gray-300 rounded-md bg-white hover:bg-blue-100 transition">
+    <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Icon" class="h-5 mr-2">
+    Sign in with Google
+  </a>
 </div>

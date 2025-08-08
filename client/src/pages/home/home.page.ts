@@ -10,14 +10,14 @@ import { Header } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-home',
-  templateUrl:'home.page.html',
+  templateUrl: 'home.page.html',
   standalone: true,
   imports: [BlogCard, Header, CategoriesComponent]
 })
 export class HomePage {
 
 
-  constructor(private activatedRoute: ActivatedRoute, protected router:Router) {
+  constructor(activatedRoute: ActivatedRoute, protected router: Router) {
     activatedRoute.params.subscribe(params => {
       console.log(params);
     })
@@ -26,7 +26,7 @@ export class HomePage {
 
 
   onChangeCategory(category: CategoryType) {
-    this.router.navigate(['/home'],{
+    this.router.navigate(['/home'], {
       queryParams: {
         category: category.name
       },
@@ -34,7 +34,7 @@ export class HomePage {
     });
     console.log(category);
   }
-  
+
 
 
   blogs$: BlogCardType[] = [

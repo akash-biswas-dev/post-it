@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, HostBinding } from "@angular/core";
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
@@ -13,6 +13,9 @@ import { InputComponent } from "../../components/input/input.component";
 
 })
 export class LoginComponent {
+
+  @HostBinding('class')
+  classes = 'bg-white p-8 rounded-xl shadow-xl w-full max-w-md';
 
   userLoginForm = new FormGroup({
     usernameOrEmail: new FormControl<string>('', [Validators.minLength(5)]),

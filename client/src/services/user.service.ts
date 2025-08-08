@@ -5,9 +5,8 @@ import { HttpClient } from "@angular/common/http";
 
 
 
-@Injectable({providedIn: 'root'})
-export class UserService{
+@Injectable({ providedIn: 'root' })
+export class UserService {
 
-
-  constructor(private authService:AuthService, private httpClient:HttpClient){}
+  constructor(private authService: AuthService, private httpClient: HttpClient) { }
 }

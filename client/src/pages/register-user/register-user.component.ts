@@ -1,4 +1,4 @@
-import { Component, signal, WritableSignal } from "@angular/core";
+import { Component, HostBinding, signal, WritableSignal } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
@@ -14,6 +14,9 @@ import { InputComponent } from "../../components/input/input.component";
   imports: [ReactiveFormsModule, InputComponent]
 })
 export class RegisterUseComponent {
+
+  @HostBinding('class')
+  classes = 'bg-white p-8 rounded-xl shadow-xl w-full md:max-w-lg';
 
   showPasswordIcon = faEye;
   hidePasswordIcon = faEyeSlash;

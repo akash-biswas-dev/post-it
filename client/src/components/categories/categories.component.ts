@@ -1,7 +1,6 @@
-import { AsyncPipe, NgClass } from "@angular/common";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Component, computed, Inject, output, Signal, signal, WritableSignal } from "@angular/core";
+import { NgClass } from "@angular/common";
+import { Component, output, signal, WritableSignal } from "@angular/core";
+import { BlogsService } from "../../services/blogs.service";
 
 
 
@@ -36,24 +35,21 @@ export class CategoriesComponent {
   protected readonly categories$: WritableSignal<CategoryType[]> = signal([]);
 
 
-  constructor(@Inject(HttpClient) httpClient: HttpClient) {
-    httpClient
-      .get<CategoryType[]>('/api/v1/blogs/categories')
-      .subscribe({
-        next: (data) => {
-          this.categories$.set(data);
-          this.selectedCategory.set(data[0].name);
-        },
-        error: (error) => {
-          console.log(error);
-        },
-        complete: () => {
-          console.log('complete');
-        }
-      });
+  constructor(blogService: BlogsService) {
+    blogService.getBlogCategories().subscribe({
+      next: (data) => {
+        this.categories$.set(data);
+        this.selectedCategory.set(data[0].name);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        console.log('complete');
+      }
+    });
 
   }
-
 
   onChangeCategoryHandle(category: CategoryType) {
     this.selectedCategory.set(category.name);
