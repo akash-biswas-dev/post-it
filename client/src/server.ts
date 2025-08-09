@@ -29,11 +29,12 @@ const angularApp = new AngularNodeAppEngine();
 /**
  * Serve static files from /browser
  */
-app.use('/api', createProxyMiddleware({
-  target: 'http://postit-server:8501/api',
-  changeOrigin: true,
-  secure: false,
-}))
+
+// app.use('/api', createProxyMiddleware({
+//   target: 'http://postit-server:8501/api',
+//   changeOrigin: true,
+//   secure: false,
+// }))
 
 app.use(
   express.static(browserDistFolder, {

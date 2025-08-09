@@ -4,7 +4,7 @@ RUN npm install -g pnpm
 
 WORKDIR /app
 
-COPY ../client .
+COPY . .
 
 RUN pnpm install --force
 RUN pnpm build
@@ -18,9 +18,9 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 
-COPY ../client/package.json ../client/pnpm-lock.yaml ./
+# COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install 
+# RUN pnpm install 
 
 # Copy server build
 COPY --from=builder /app/dist/client . 
