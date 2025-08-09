@@ -19,7 +19,7 @@ export class HomePage {
 
   constructor(activatedRoute: ActivatedRoute, protected router: Router) {
     activatedRoute.params.subscribe(params => {
-      console.log(params);
+      // console.log(params);
     })
   }
 

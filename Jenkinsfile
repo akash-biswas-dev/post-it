@@ -41,7 +41,7 @@ pipeline {
         stage('Deploy') {
             steps{
                 echo 'Start to deploy the Postit Client.'
-                sh 'docker-compose up -d'
+                sh 'docker compose up -d'
             }
         }
         

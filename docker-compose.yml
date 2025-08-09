@@ -1,8 +1,6 @@
 services:
   gateway:
-    build:
-      context: .
-      dockerfile: docker/nginx.Dockerfile
+    image: biswasakash/postit-gateway:docker-deployment
     container_name: postit-gateway
     ports:
       - "8901:80"
@@ -14,9 +12,7 @@ services:
         condition: service_healthy
         restart: true
   client:
-    build:
-      context: .
-      dockerfile: docker/client.Dockerfile
+    image: biswasakash/postit-client:docker-deployment
     container_name: postit-client
     environment:
       - PORT=4800
@@ -31,9 +27,7 @@ services:
         condition: service_healthy
         restart: true
   server:
-    build:
-      context: .
-      dockerfile: docker/server.Dockerfile
+    image: biswasakash/postit-server:docker-deployment
     container_name: postit-server
     environment:
       - SERVER_PORT=8501

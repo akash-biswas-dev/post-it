@@ -44,9 +44,7 @@ export class CategoriesComponent {
       error: (error) => {
         console.log(error);
       },
-      complete: () => {
-        console.log('complete');
-      }
+      complete: () => { }
     });
 
   }
