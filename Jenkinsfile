@@ -15,25 +15,24 @@ pipeline {
                 stage('Build Client') {
                     steps{
                         echo 'Start to build the Postit Client.'
-                        dir('client'){
-                            sh 'docker build -t biswasakash/postit-client:docker-deployment -f docker/client.Dockerfile client'
-                        }
+                        
+                        sh 'docker build -t biswasakash/postit-client:docker-deployment -f docker/client.Dockerfile client'
+
                     }
                 }
                 stage('Nginx Build') {
                     steps{
                         echo 'Start to build the Postit Gateway.'
-                        dir('nginx'){
-                            sh 'docker build -t biswasakash/postit-gateway:docker-deployment -f docker/nginx.Dockerfile nginx '
-                        }
+                    
+                        sh 'docker build -t biswasakash/postit-gateway:docker-deployment -f docker/nginx.Dockerfile nginx '
                     }
                 }
                 stage('Server Build') {
                     steps{
                         echo 'Start to build the Postit Server.'
-                        dir('server'){
-                            sh 'docker build -t biswasakash/postit-server:docker-deployment -f docker/server.Dockerfile server'
-                        }
+                        
+                        sh 'docker build -t biswasakash/postit-server:docker-deployment -f docker/server.Dockerfile server'
+                        
                     }
                 }
             }
